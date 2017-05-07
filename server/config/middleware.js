@@ -11,6 +11,8 @@ module.exports = function (app, express) {
  	app.use(bodyParser.json());
 	
   //use the built in middleware to serve static files such as images, CSS files, and JavaScript files.
-  	app.use(express.static(__dirname+'../client'));
+  	// app.use(express.static(__dirname+'../client'));
+    	app.use(express.static(__dirname + '/../../dist'));
+
 
 };
