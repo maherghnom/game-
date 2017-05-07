@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var routes   = require('./config/routes');
 var mw       = require('./config/middleware');
 
-
+var count = 0;
 //=============================================================================
 /*									Server   								 */
 //=============================================================================
@@ -24,6 +24,8 @@ const server = app.listen(port,function(){
 var io = require('socket.io')(server); 
 
 io.on('connection', function (socket) {
+count++;
+conosel.log(cocount + "active socket")
   socket.emit('news', { hello: 'world' });
   socket.on('my other event', function (data) {
     console.log(data);
