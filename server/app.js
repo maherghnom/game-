@@ -23,12 +23,35 @@ const server = app.listen(port,function(){
  });
 var io = require('socket.io')(server); 
 
+
+// io.sockets.on('connection',newConnection);
+
+// function newConnection(socket){
+// count++;
+// console.log('new connection',socket.id)
+// console.log(count + "active socket");
+
+//   // console.log('-------------------',socket);
+// }
+
+
 io.on('connection', function (socket) {
 count++;
-conosel.log(cocount + "active socket")
+console.log(count + "  active socket",socket.id)
   socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
+  socket.on('add-message', function (data) {
+    console.log('on add msg ');
     console.log(data);
+    console.log('post owner',socket.id)
+  // socket.broadcast.emit('news', data);//broadcast data to all sockets expect the sender;
+  io.sockets.emit('news',data);//sending data to all sockes
+    
   });
+  
+  socket.on('disconnect', function () {
+  count--;
+   console.log(count + "active socket")
+ });
 });
+
     
