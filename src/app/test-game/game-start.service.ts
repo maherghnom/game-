@@ -1,28 +1,29 @@
 import { Injectable } from '@angular/core';
+
+
+
 import {Http, Headers} from '@angular/http';
 
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class UserService {
+export class GameStartService {
 
   constructor(private http:Http) { }
-  registerUser(user){
+
+  gameinit(game){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('api/user/signup', user,{headers: headers})
+    return this.http.post('api/game/start', game,{headers: headers})
     .map(res => res.json());
   }
 
-    signin(user) {
+  check(game) {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('api/user/signin', user, {headers: headers})
+    return this.http.post('api/game/check', game, {headers: headers})
     .map(res => res.json());
   }
-    storeUserData(id,name){
-      localStorage.setItem('user-id', id);
-      localStorage.setItem('user-name', name);
-      
-    }
+
+
 }

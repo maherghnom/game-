@@ -8,4 +8,11 @@
       
 </div>
 
-<form action=""> 
+ 
+
+  <input type="submit" (click)="startGame()"  value="Start Game" id="input-submit">
+  
+  <input id="input-user"  type="text" name="UserAnswer"  placeholder="You Answer" [(ngModel)]="userAnswer"/>
+  <input type="submit" (click)="sendAnswer()"  value="Send Answer" id="input-submit">
+  
+

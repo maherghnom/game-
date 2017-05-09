@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { LocationStrategy , HashLocationStrategy } from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {UserService} from './User/user.service';
+import {GameStartService} from './test-game/game-start.service';
+
 
 
 import { AppComponent } from './app.component';
@@ -39,7 +41,7 @@ import { UserSinginComponent } from './User/user-singin/user-singin.component';
 ])
     
   ],
-  providers: [{provide:LocationStrategy,useClass:HashLocationStrategy},UserService],
+  providers: [{provide:LocationStrategy,useClass:HashLocationStrategy},UserService,GameStartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

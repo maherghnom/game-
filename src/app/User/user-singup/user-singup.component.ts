@@ -29,6 +29,7 @@ export class UserSingupComponent implements OnInit {
 
       if(data){
         console.log(data);
+        this.userService.storeUserData(data._id,data.username)
         // this.userService.storeUserData(data.token,data._id,data.username)
         this.router.navigate(['/test']);
         } else {

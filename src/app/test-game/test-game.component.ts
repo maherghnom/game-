@@ -1,51 +1,10 @@
-
-// import * as io from 'socket.io-client';
-//         import { Subject } from 'rxjs/Subject';
-//         import { Observable } from 'rxjs/Observable';
-
-// @Component({
-//   selector: 'app-test-game',
-//   templateUrl: './test-game.component.html',
-//   styleUrls: ['./test-game.component.css']
-// })
-// export class TestGameComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-
-//   }
-  
-//    private url = 'https://localhost:1020';  
-        
-//         private socket = io(this.url); 
-
-    
-
-//         getMessages() {
-//             let observable = new Observable(observer => {
-//             this.socket.on('message', (data) => {
-//                console.log("asdasd") 
-//                 observer.next(data);    
-//             });
-//             return () => {
-//                 this.socket.disconnect();
-//             };  
-//             })     
-//             return observable;
-//         }   
-//            sendMessage(message){
-//             this.socket.emit('add-message', message);
-//             console.log("asdasd")    
-//         }
-
-
-
-        
-        
-// }
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { GameService } from './game.service';
+import {GameStartService} from '../test-game/game-start.service';
+
+
+
+
 @Component({
   selector: 'app-test-game',
   templateUrl: './test-game.component.html',
@@ -53,11 +12,17 @@ import { GameService } from './game.service';
   providers: [GameService]
 })
 export class TestGameComponent implements OnInit, OnDestroy {
-  messages = [];
-  connection;
-    message : String ;
+private messages = [];
+private connection;
+private  message : String ;
+private  userAnswer : String ;
+private GameId:String;
+private userid:String;
+private username:String;
+
   
-   constructor(private gameService:GameService) {}
+  
+   constructor(private gameService:GameService  ,private game:GameStartService) {}
   sendMessage(){
     this.gameService.sendMessage(this.message);
     this.message = '';
@@ -80,6 +45,59 @@ export class TestGameComponent implements OnInit, OnDestroy {
   // Let's unsubscribe our Observable
   ngOnDestroy() {
     this.connection.unsubscribe();
+  }
+
+  startGame(){
+
+        const user = {
+      username: "maher", 
+    }
+    console.log(user);
+
+    //Register user
+    this.game.gameinit({Gdata:user}).subscribe(data => {
+      
+
+      if(data){
+        console.log(data);
+        this.GameId=data._id;
+        // this.userService.storeUserData(data.token,data._id,data.username)
+        
+      } else {
+        console.log("erooekjsiodhf");
+        
+          
+        }
+        });
+
+  }
+
+    sendAnswer(){
+   const answer = {
+      answer: this.userAnswer,
+      gameid:this.GameId,
+      userid:localStorage.getItem('user-id'),
+      username: localStorage.getItem('user-name')
+
+    }
+    console.log(answer);
+
+
+    this.game.check({Gdata:answer}).subscribe(data => {
+      
+
+      if(data){
+        console.log(data,'form server');
+
+        // this.userService.storeUserData(data.token,data._id,data.username)
+        
+      } else {
+        console.log("erooekjsiodhf");
+        
+          
+        }
+        });
+
   }
 }
   
