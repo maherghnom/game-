@@ -1,0 +1,13 @@
+<p>
+  user-singup works!
+</p>
+  <form (submit)="onRegisterUser()"  >
+    <div>
+<input id="input-user"  type="text" name="firstname"  placeholder="First name" [(ngModel)]="username"/>
+<input id="input-password" required="" name="password" type="password" minlength="4" maxlength="16" placeholder="PassWord"  pb-role="password" [(ngModel)]="password">
+ 
+    </div>
+  <input type="submit" value="Submit" id="input-submit">
+     <a routerLink = "/signin" >Login Page</a>
+  </form>
+

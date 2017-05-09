@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var routes   = require('./config/routes');
 var mw       = require('./config/middleware');
 
+
 var count = 0;
 var games = 0;
 //=============================================================================
@@ -22,6 +23,10 @@ const port = process.env.PORT || 1020;
 const server = app.listen(port,function(){
 	console.log('wornking on port : ' + port)
  });
+
+require('./config/routes.js') (app,express);
+
+ 
 var io = require('socket.io')(server); 
 
 
@@ -72,6 +77,17 @@ nsp.on('connection', function(socket){
   });
 });
 
+//=============================================================================
+/*								Database									 */
+//=============================================================================
+	 const mongoURI = process.env.MONGODB_URI  || 'mongodb://localhost/guessGame';
+
+	mongoose.connect(mongoURI);
+	db = mongoose.connection;
+
+	db.once('open',function () {
+		console.log('mongoDB is open');
+	});
 
 
 
