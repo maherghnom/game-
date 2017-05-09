@@ -4,16 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LocationStrategy , HashLocationStrategy } from '@angular/common';
 import {RouterModule} from '@angular/router';
+import {UserService} from './User/user.service';
+
 
 import { AppComponent } from './app.component';
 import { TestGameComponent } from './test-game/test-game.component';
-import { OComponent } from './o/o.component';
+import { UserSingupComponent } from './User/user-singup/user-singup.component';
+import { UserSinginComponent } from './User/user-singin/user-singin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestGameComponent,
-    OComponent
+    UserSingupComponent,
+    UserSinginComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +26,9 @@ import { OComponent } from './o/o.component';
     RouterModule.forRoot([
   {path:'',component:AppComponent},
   { path: 'test', component: TestGameComponent },
+  { path: 'signup', component: UserSingupComponent },
+  { path: 'signin', component: UserSinginComponent }
+  
 
   
   
@@ -32,7 +39,7 @@ import { OComponent } from './o/o.component';
 ])
     
   ],
-  providers: [{provide:LocationStrategy,useClass:HashLocationStrategy}],
+  providers: [{provide:LocationStrategy,useClass:HashLocationStrategy},UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
