@@ -4,6 +4,7 @@ var routes   = require('./config/routes');
 var mw       = require('./config/middleware');
 
 var count = 0;
+var games = 0;
 //=============================================================================
 /*									Server   								 */
 //=============================================================================
@@ -45,7 +46,8 @@ console.log(count + "  active socket",socket.id)
     console.log('post owner',socket.id)
   // socket.broadcast.emit('news', data);//broadcast data to all sockets expect the sender;
   io.sockets.emit('news',data);//sending data to all sockes
-    
+
+
   });
   
   socket.on('disconnect', function () {
@@ -53,5 +55,24 @@ console.log(count + "  active socket",socket.id)
    console.log(count + "active socket")
  });
 });
+
+
+var nsp = io.of('/game1');
+
+nsp.on('connection', function(socket){
+ 
+  console.log('finally name space'+socket.id);
+    socket.on('special-socket', function (data) {
+    console.log('on namespace ');
+    console.log(data);
+    console.log('post owner',socket.id)
+  io.sockets.emit('game1',data);//sending data to all sockes
+
+
+  });
+});
+
+
+
 
     

@@ -7,11 +7,13 @@ import {RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { TestGameComponent } from './test-game/test-game.component';
+import { OComponent } from './o/o.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestGameComponent
+    TestGameComponent,
+    OComponent
   ],
   imports: [
     BrowserModule,

@@ -65,6 +65,11 @@ export class TestGameComponent implements OnInit, OnDestroy {
     console.log(this.message);
     
   }
+    joingame(){
+      this.gameService.joingame();
+        console.log("join room ");
+       
+  }
   ngOnInit() {
     this.connection = this.gameService.getMessages().subscribe(message => {
       this.messages.push(message);
