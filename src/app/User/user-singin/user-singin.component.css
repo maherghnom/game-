@@ -1,0 +1,83 @@
+#bg {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+section.success {
+  background: #485451;
+  color: white;
+}
+p {
+  font-size: 20px;
+}
+p.small {
+  font-size: 16px;
+}
+.btn-outline {
+  color: white;
+  font-size: 20px;
+  border: solid 2px white;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+  margin-top: 15px;
+}
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
+  color: #485451;
+  background: white;
+  border: solid 2px white;
+}
+
+a,
+a:hover,
+a:focus,
+a:active,
+a.active {
+  color: #485451;
+}
+
+body {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+hr.star-light,
+hr.star-primary {
+  padding: 0;
+  border: none;
+  border-top: solid 5px;
+  text-align: center;
+  max-width: 225px;
+  margin: 10px auto 20px;
+}
+hr.star-light:after,
+hr.star-primary:after {
+  content: "\f005";
+  font-family: FontAwesome;
+  display: inline-block;
+  position: relative;
+  top: -0.8em;
+  font-size: 2em;
+  padding: 0 0.25em;
+}
+hr.star-light {
+  border-color: white;
+}
+hr.star-light:after {
+  background-color: #485451;
+  color: white;
+}
+
+section {
+  padding: 75px 0;
+}
+section h2 {
+  margin: 0;
+  font-size: 3em;
+}
