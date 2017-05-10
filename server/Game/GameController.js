@@ -1,5 +1,9 @@
-const Game = require('./GameModel.js');
- var user = require('../User/UserModel.js');
+var Game = require('./GameModel.js');
+// var player = require('../Player/PlayerModel');
+// var mongoose = require ('mongoose');
+
+// var player = mongoose.model('Player')
+// var p = require('../Player/PlayerController')
 
 
 
@@ -21,26 +25,18 @@ module.exports = {
 
   check : (req,res) =>{
  ///FROM DATA user id , game id , username  ,userAnswer
-let userid=req.body.Gdata.auserid;
+let userid=req.body.Gdata.userid;
 let username=req.body.Gdata.username;
 let gameid=req.body.Gdata.gameid;
 let userA=req.body.Gdata.answer;
 ///check the answer
  let query = {'_id': gameid};
-		console.log(req.body.Gdata,"----------------")
-		console.log(query,"----------------")
 		
     Game.findOne(query).exec(function(err,data){
-		console.log(data);
-		console.log(userA,"asfjksgdk");
-		console.log(gameid,"asfjksgdk");
-		
-		
 		if(err){
-
 		}
 		else if (data.rightAnswer === userA){
-          res.json('you won the game')
+          
 			
 	 let doc = { closed: true,winnerId:userid};
 	 Game.findOneAndUpdate(query,doc, { "new": true})
@@ -48,21 +44,22 @@ let userA=req.body.Gdata.answer;
         if(err){
           res.json(err)
         }else {
-			console.log(data)
-          res.json('you won the game')
+        //   res.json('you won the game')
         }
        })
 
 	 let q = {'_id': userid};
-	 console.log(q)
- 	 let d = { trophies:trophies+10};
+	 console.log(q,'user id')
+ 	 let d = { trophies:+10};
 
-      user.findOneAndUpdate(q,d, { "new": true})
-       .exec(function(err,data){
+      player.findOneAndUpdate(q,d, { "new": true})
+      .exec(function(err,data){
         if(err){
           res.json(err)
         }else {
-			console.log(data)
+			console.log(data,'in player')
+			
+			console.log(data,'in player')
 			
           res.json('you won the game')
         }

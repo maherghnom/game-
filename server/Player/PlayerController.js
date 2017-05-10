@@ -1,18 +1,18 @@
-var userModel = require('./userModel.js');
+var player = require('./playermodel.js');
 
-
+module.exports =player;
 
 module.exports = {
 
 	signup : (req, res) => {
 		let userData  = req.body.Udata;
-		userModel.findOne({username : userData.username}, (err, userEX)=>{
+		player.findOne({username : userData.username}, (err, userEX)=>{
 			if (userEX) {
 				console.log(userEX)
 				res.json({isUserExist : true })
 			}else {
 				console.log("error")
-				userModel.create(userData, (err, data)=> {
+				player.create(userData, (err, data)=> {
 					if (err) {
 						res.status(500).send(err);
 					}else{
@@ -29,7 +29,7 @@ module.exports = {
 
 
 	signin : (req, res) => {
-		userModel.findOne({email : req.body.email}, (err, user) => {
+		player.findOne({email : req.body.email}, (err, user) => {
 			if (!user) {
 				res.json({isUser : false});
 			}else{
@@ -48,7 +48,7 @@ module.exports = {
 
 
 	getAll : (req, res)=> {
-		userModel.find({}, (err, user)=>{
+		player.find({}, (err, user)=>{
 			if (!user) {
 				res.json("user not found")
 			}else{

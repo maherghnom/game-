@@ -13,13 +13,15 @@ import { AppComponent } from './app.component';
 import { TestGameComponent } from './test-game/test-game.component';
 import { UserSingupComponent } from './User/user-singup/user-singup.component';
 import { UserSinginComponent } from './User/user-singin/user-singin.component';
+import { UserhomeComponent } from './User/userhome/userhome.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestGameComponent,
     UserSingupComponent,
-    UserSinginComponent
+    UserSinginComponent,
+    UserhomeComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,9 @@ import { UserSinginComponent } from './User/user-singin/user-singin.component';
   {path:'',component:AppComponent},
   { path: 'test', component: TestGameComponent },
   { path: 'signup', component: UserSingupComponent },
-  { path: 'signin', component: UserSinginComponent }
+  { path: 'signin', component: UserSinginComponent },
+  { path: 'home', component: UserhomeComponent }
+  
   
 
   
