@@ -28,9 +28,9 @@ import { UserhomeComponent } from './User/userhome/userhome.component';
     FormsModule,
     HttpModule,
     RouterModule.forRoot([
-  {path:'',component:AppComponent},
+  {path:'',component:UserSingupComponent},
   { path: 'test', component: TestGameComponent },
-  { path: 'signup', component: UserSingupComponent },
+  // { path: 'signup', component: UserSingupComponent },
   { path: 'signin', component: UserSinginComponent },
   { path: 'home', component: UserhomeComponent }
   

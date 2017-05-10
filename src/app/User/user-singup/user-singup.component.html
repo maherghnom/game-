@@ -1,7 +1,75 @@
 <p>
   user-singup works!
 </p>
-  <form (submit)="onRegisterUser()"  >
+ 
+
+
+
+<div class ="bbdd">
+
+
+
+
+  
+  <img src="../../assets/1.jpg" id="bg" alt="">
+
+  <div class="open"> 
+  <span class="cls"></span> 
+  <span>
+    <ul class="sub-menu ">
+      <li> <a href="#">Home</a> </li>
+      <li> <a href="#">Contact</a> </li>
+      <li> <a href="#">About</a> </li>
+      <li> <a href="#">Blog</a> </li>
+    </ul>
+  </span> 
+  <span class="cls"></span> 
+</div>
+
+<div class="dropdown top-bar fixed "  >
+  <button class="dropbtn">Dropdown</button>
+  <div class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+</div>
+  <a name="about"></a>
+  <div class="intro-header">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="intro-message">
+            <h1>Guess The Number</h1>
+            <h2>Can You Guess First <span class=" glyphicon glyphicon-check"></span></h2>
+            <hr class="intro-divider">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br><br>
+  <section class="success" id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2>Start Guessing</h2><br>
+          <hr class="star-light">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-lg-offset-2">
+          <p> A Game , where you can challenge other player by guessing the right number.... </p>
+        </div>
+        <div class="col-lg-4">
+          <p>Earn Trophy , explore your game hostory ,</p>
+        </div>
+        <div class="col-lg-8 col-lg-offset-2 text-center"> 
+        </div>
+
+      </div>
+                   <form (submit)="onRegisterUser()"  >
     <div>
 <input id="input-user"  type="text" name="firstname"  placeholder="First name" [(ngModel)]="username"/>
 <input id="input-password" required="" name="password" type="password" minlength="4" maxlength="16" placeholder="PassWord"  pb-role="password" [(ngModel)]="password">
@@ -10,4 +78,20 @@
   <input type="submit" value="Submit" id="input-submit">
      <a routerLink = "/signin" >Login Page</a>
   </form>
+    </div> 
+  </section>
 
+ 
+
+
+
+
+ 
+  <div class="container">
+    <footer class="container-fluid text-center">
+      <i>Guess My number <i class="fa fa-ravelry" aria-hidden="true"></i></i><br>
+      <i>Our Address: Amman, Jordan, Business Park <span class="glyphicon glyphicon-globe"></span></i><br>
+      <i class="copyright text-muted small">Copyright &copy; G-P <span class="glyphicon glyphicon-heart"></span></i><br>
+    </footer>
+  </div>
+</div>
