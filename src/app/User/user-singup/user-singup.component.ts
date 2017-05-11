@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../user.service';
-declare var $:any;
+
 
 @Component({
   selector: 'app-user-singup',
@@ -18,20 +18,8 @@ export class UserSingupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-      ////menu some jquery
-  $(document).ready(function() {
-  $(document).delegate('.open', 'click', function(event){
-    $(this).addClass('oppenned');
-    event.stopPropagation();
-  })
-  $(document).delegate('body', 'click', function(event) {
-    $('.open').removeClass('oppenned');
-  })
-  $(document).delegate('.cls', 'click', function(event){
-    $('.open').removeClass('oppenned');
-    event.stopPropagation();
-  });
-});
+    
+
   }
   onRegisterUser(){
     const user = {
@@ -46,7 +34,6 @@ export class UserSingupComponent implements OnInit {
       if(data){
         console.log(data);
         this.userService.storeUserData(data._id,data.username)
-        // this.userService.storeUserData(data.token,data._id,data.username)
         this.router.navigate(['/home']);
         } else {
           this.router.navigate(['/']);

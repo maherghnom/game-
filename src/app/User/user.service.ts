@@ -20,6 +20,20 @@ export class UserService {
     return this.http.post('api/user/signin', user, {headers: headers})
     .map(res => res.json());
   }
+
+    Userstats(params) {
+      console.log(params)
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.get('api/user/stats/' + params )
+    .map(res => res.json());
+  }
+     getGames() {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.get('api/game/all',  {headers: headers})
+    .map(res => res.json());
+  }
     storeUserData(id,name){
       localStorage.setItem('user-id', id);
       localStorage.setItem('user-name', name);

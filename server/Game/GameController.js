@@ -52,18 +52,18 @@ let userA=req.body.Gdata.answer;
 	 console.log(q,'user id')
  	 let d = { trophies:+10};
 
-      player.findOneAndUpdate(q,d, { "new": true})
-      .exec(function(err,data){
-        if(err){
-          res.json(err)
-        }else {
-			console.log(data,'in player')
+    //   player.findOneAndUpdate(q,d, { "new": true})
+    //   .exec(function(err,data){
+    //     if(err){
+    //       res.json(err)
+    //     }else {
+	// 		console.log(data,'in player')
 			
-			console.log(data,'in player')
+	// 		console.log(data,'in player')
 			
-          res.json('you won the game')
-        }
-       })
+    //       res.json('you won the game')
+    //     }
+    //    })
 
 		}else if(data.rightAnswer < userA){
 			res.json("higer") ;
@@ -72,6 +72,15 @@ let userA=req.body.Gdata.answer;
 		}
 
 	})
+},
+getgames :  (req, res)=> {
+		Game.find({ $where : "this.closed == 'false' " }, (err, game)=>{
+			if (err) {
+				res.json(err)
+			}else{
+				res.json(game);
+			}
+		})
 	}
   }
 

@@ -9,12 +9,12 @@ var PlayerSchema = new  mongoose.Schema({
 		type : String,
 		required : true
 	},
-	trophies : { type: String,
+	trophies : { type: Number,
 				 default: 0 },
 	userstats:  {
-    gameplayed: { type: String, default: 0  },
-    gamewon:    { type: String, default: 0  },
-    gamelost:   { type: String, default: 0  }
+    gameplayed: { type: Number, default: 0  },
+    gamewon:    { type: Number, default: 0  },
+    gamelost:   { type: Number, default: 0  }
 	
   }
 	

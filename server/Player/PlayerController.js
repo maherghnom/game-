@@ -48,12 +48,25 @@ module.exports = {
 
 
 	getAll : (req, res)=> {
-		player.find({}, (err, user)=>{
+		player.find({} , (err, user)=>{
 			if (!user) {
 				res.json("user not found")
 			}else{
 				res.json(user);
 			}
 		})
+	},
+
+	getstats : (req, res) => {
+		player.findOne({'_id': req.params.userid}, (err, data)=>{
+			if (!data) {
+				res.json({isUserExist : false })
+			}else {
+				res.json(data.userstats)
+				
+
+			}
+		})
 	}
 }
+
