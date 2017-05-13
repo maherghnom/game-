@@ -16,6 +16,7 @@ export class UserhomeComponent implements OnInit {
   protected Ustats:any;
   protected games:any;
   private statsflag = false;
+  private errorMsg : String;
   
   
   
@@ -93,15 +94,21 @@ export class UserhomeComponent implements OnInit {
   
     Userstats(){
       
-      this.userService.Userstats(localStorage.getItem('user-name')).subscribe( data => {
-      if (data.status===401) {
-        this.router.navigate(['/login']);
-      }else {
-        console.log(data)
-      }
-    })
+      this.userService.Userstats(localStorage.getItem('user-name'))
+      .subscribe( data => this.Ustats=data,
+      reserr =>{
+        if(reserr){
+      this.router.navigate(['/login'])
+
+        }
+
+      })
+    }
+      
+                       
+
     
-      }
+      
       
       getgames(){
         this.userService.getGames().subscribe(data => {

@@ -1,6 +1,7 @@
 let player = require('./playermodel.js');	
 let jwt    = require('jsonwebtoken');
 
+
 module.exports = {
 	
 	signup : (req, res) => {
@@ -37,24 +38,20 @@ module.exports = {
 	
 	
 	signin : (req, res) => {
-		let username = req.body.username;
-		
-		player.findOne({username : req.body.username}, (err, player) => {
+		player.findOne({username : req.body.Udata.username}, (err, player) => {
 			if (!player) {
 				res.status(422).send({message: 'User Not Exist'});
 			}else{
 				
-				player.comparePassword(req.body.password)
+				player.comparePassword(req.body.Udata.password)
 				.then(function (isMatch) {
 					if (isMatch) {
-						let token = jwt.sign(data, "hell of token guess game", {
-							expiresInMinutes:  1440 // expires in 24 hours
-						});
-						
+						let token = jwt.sign(player, "hell of token guess game", 
+						{expiresIn: 1440}//1440 // expires in 24 hours
+						);
 						res.json({
 							token : token,
-							expires: expires,
-							username: data.username
+							username: player.username
 						});
 					} else {
 						res.json({message :"password not matched"})
