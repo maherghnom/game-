@@ -4,11 +4,8 @@ let jwt    = require('jsonwebtoken');
 module.exports =  function isAuthenticated(req, res, next) {
     
     
-    // check header or url parameters or post parameters for token
+    // check header for token 
     let token =  req.headers['my-access-guess-app'];
-    
-    console.log(token,"lol")
-    
     
     // decode token
     if (token) {
@@ -20,15 +17,12 @@ module.exports =  function isAuthenticated(req, res, next) {
             } else {
                 // if everything is good, save to request for use in other routes
                 // req.decoded = decoded;
-                console.log("in auth data")    
-               return  next();
+                next();
             }
         });
         
     } else if (!token){
-        console.log('what the fuck')
         // if  no token provided
-        
         return res.status(401).send({ 
             success: false, 
             message: 'Not  Authorized ' 

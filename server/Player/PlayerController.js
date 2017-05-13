@@ -79,11 +79,15 @@ module.exports = {
 			if (!data) {
 				res.json({isUserExist : false })
 			}else {
-				res.json(data.userstats)
 				
-				
-			}
-		})
+				res.json({gameplayed:data.userstats,
+					gamewon:data.userstats,
+					gamelost:data.userstats})
+					
+					
+				}
+			})
+		}
 	}
-}
-
+	
+	

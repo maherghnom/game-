@@ -3,7 +3,7 @@ var player = require('../Player/PlayerModel');
 // var mongoose = require ('mongoose');
 
 // var player = mongoose.model('Player')
-var p = require('../Player/PlayerController')
+// var p = require('../Player/PlayerController')
 
 
 
@@ -26,47 +26,58 @@ module.exports = (io) => {
 
 		check: (req, res) => {
 			///FROM DATA user id , game id , username  ,userAnswer
-			let userid = req.body.Gdata.userid;
+			let event = req.body.Gdata.gameid
+			// let userid = req.body.Gdata.userid;
 			let username = req.body.Gdata.username;
 			let gameid = req.body.Gdata.gameid;
 			let userA = req.body.Gdata.answer;
-			io.sockets.emit("news", {status: 'win'})
+			io.sockets.emit(event, {status: 'win'})
 			///check the answer
 			let query = { '_id': gameid };
 
 			Game.findOne(query).exec(function (err, data) {
 				if (err) {
 				}
+				if (data.closed){
+					res.json('you loose' ,  data.winnername)
+				}
 				else if (data.rightAnswer === userA) {
 
 
-					let doc = { closed: true, winnerId: userid };
+					let doc = { closed: true, winnername: username };
 					Game.findOneAndUpdate(query, doc, { "new": true })
 						.exec(function (err, data) {
 							if (err) {
 								res.json(err)
 							} else {
+						io.sockets.emit(event, {won: data.winnername})
+								
 								//   res.json('you won the game')
 							}
-						})
+						},addTrophy)
 
-					let q = { '_id': userid };
-					console.log(q, 'user id')
-					let d = { trophies: +10 };
+					
+					// gamelost:data.userstats})
+					let q = { 'username': username };
+					let d = { trophies: +10 ,
+						 gameplayed : +1,
+						gamewon : +1};
 
-					//   player.findOneAndUpdate(q,d, { "new": true})
-					//   .exec(function(err,data){
-					//     if(err){
-					//       res.json(err)
-					//     }else {
-					// 		console.log(data,'in player')
+					addTrophy = function (){
 
-					// 		console.log(data,'in player')
+					  player.findOneAndUpdate(q,d, { "new": true})
+					  .exec(function(err,data){
+					    if(err){
+					      res.json(err)
+					    }else {
+							console.log(data,'in player')
 
-					//       res.json('you won the game')
-					//     }
-					//    })
+							console.log(data,'in player')
 
+					      res.json('you won the game')
+					    }
+					   })
+					}
 				} else if (data.rightAnswer < userA) {
 					res.json("higer");
 				} else {
