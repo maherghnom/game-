@@ -15,7 +15,7 @@ module.exports = {
 						res.status(500).send(err);
 					}else{
 						let token = jwt.sign(data, "hell of token guess game", 
-						{expiresIn: 1000}//1440 // expires in 24 hours
+						{expiresIn: "1h"}//1440 // expires in 24 hours
 						);
 						
 						res.json({
@@ -47,7 +47,7 @@ module.exports = {
 				.then(function (isMatch) {
 					if (isMatch) {
 						let token = jwt.sign(player, "hell of token guess game", 
-						{expiresIn: 1440}//1440 // expires in 24 hours
+						{expiresIn: "1h"}//1440 // expires in 24 hours
 						);
 						res.json({
 							token : token,

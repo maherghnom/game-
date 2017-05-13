@@ -30,6 +30,10 @@ export class JoinGameComponent implements OnInit {
     this.connection = this.gameService.getMessages().subscribe(message => {
       
       console.log(message)
+      if (message === "gameOver"){
+        alert('you lost');
+        this.router.navigate(['/home']);
+      }
       
     })
     

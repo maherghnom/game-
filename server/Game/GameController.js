@@ -26,12 +26,11 @@ module.exports = (io) => {
 		
 		check: (req, res) => {
 			///FROM DATA user id , game id , username  ,userAnswer
-			let event = req.body.Gdata.gameid
+			let event = req.body.Gdata.gamename
 			// let userid = req.body.Gdata.userid;
 			let username = req.body.Gdata.username;
 			let gameid = req.body.Gdata.gameid;
 			let userA = req.body.Gdata.answer;
-			io.sockets.emit(event, {status: 'win'})
 			///check the answer
 			let query = { '_id': gameid };
 			
@@ -39,30 +38,31 @@ module.exports = (io) => {
 				if (err) {
 				}
 				// if (data.closed){
-				// 	res.json('you loose' ,  data.winnername)
-				// }
-				else if (data.rightAnswer === userA) {
-					
-					
-					let doc = { closed: true, winnername: username };
-					Game.findOneAndUpdate(query, doc, { "new": true })
-					.exec(function (err, data) {
-						if (err) {
-							res.json(err)
-						} else {
-							io.sockets.emit(event, {won: data.winnername,end:true})
+					// 	res.json('you loose' ,  data.winnername)
+					// }
+					else if (data.rightAnswer === userA) {
+						
+						
+						let doc = { closed: true, winnername: username };
+						Game.findOneAndUpdate(query, doc, { "new": true })
+						.exec(function (err, data) {
+							if (err) {
+								res.json(err)
+							} else {
+								// io.sockets.emit(event, {status: 'win'})
+								io.sockets.emit(event, "gameOver")
+								
+							}
+						})
+						
+						
+						// gamelost:data.userstats})
+						let q = { 'username': username };
+						let d = { trophies: +10 ,
+							gameplayed : +1,
+							gamewon : +1};
 							
-						}
-					})
-					
-					
-					// gamelost:data.userstats})
-					let q = { 'username': username };
-					let d = { trophies: +10 ,
-						gameplayed : +1,
-						gamewon : +1};
-						
-						
+							
 							
 							player.findOneAndUpdate(q,d, { "new": true})
 							.exec(function(err,data){
@@ -76,85 +76,38 @@ module.exports = (io) => {
 									res.json('you won the game')
 								}
 							})
+							
+						} else if (data.rightAnswer < userA) {
+							res.json("the right answer is lower");
+								io.sockets.emit(event, {end:false})
+							
+						} else {
+								io.sockets.emit(event, {end:false})
+							
+							res.json("the right answer is higher")
+						}
 						
-					} else if (data.rightAnswer < userA) {
-						res.json("higer");
-					} else {
-						res.json('lower')
-					}
-					
-				})
-			},
-			getgames: (req, res) => {
-				Game.find({ $where: "this.closed == 'false' " }, (err, game) => {
-					if (err) {
-						res.json(err)
-					} else {
-						res.json(game);
-					}
-				})
+					})
+				},
+				getgames: (req, res) => {
+					Game.find({ $where: "this.closed == 'false' " }, (err, game) => {
+						if (err) {
+							res.json(err)
+						} else {
+							res.json(game);
+						}
+					})
+				}
 			}
 		}
-	}
-	
-	///if right answer  
-	///close the game in db  and send that its closed to the scond player 
-	///save the winer id in game object  
-	// if (x === "right"){
 		
-		//  	 let doc = { closed: true,winnerId:userid};
-		// 	 let q = {'_id': userid};
-		// 	 Game.findOneAndUpdate(query,doc, { "new": true})
-		//        .exec(function(err,data){
-			//         if(err){
-				//           res.json(err)
-				//         }else {
-					//           res.json('you won the game')
-					//         }
-					//        })
-					//  	 let d = { trophies:trophies+10 ,winnerId:userid};
-					
-					//       User.findOneAndUpdate(q,d, { "new": true})
-					//        .exec(function(err,data){
-						//         if(err){
-							//           res.json(err)
-							//         }else {
-								//           res.json('you won the game')
-								//         }
-								//        })
-								
-								// }
-								// else if (x === "higer") {
-									//     res.json('your answer is higher')
-									// }else {
-										// 	res.json('your answer is lower')
-										// }
-										
-										
-										
-										
-										////increase trophy for winner and decrease trophy for looser
-										
-										
-										
-										///if wrong 
-										
-										
-										////if higher send ur answer were high or if lower send your answer were low 
-										
-										
-										
-										
-										//   }
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
