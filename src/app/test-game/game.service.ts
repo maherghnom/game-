@@ -29,7 +29,7 @@ export class GameService {
    this.socket.on('connection', function(socket){
 
    socket.join('/game1');
-;
+
    
 });
        
@@ -39,7 +39,7 @@ export class GameService {
    getMessages() {
     let observable = new Observable(observer => {
       
-      this.socket.on(this.path, (data) => {
+      this.socket.on("news", (data) => {
         observer.next(data);   
       });
       return () => {

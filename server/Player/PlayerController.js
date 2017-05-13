@@ -1,52 +1,72 @@
-var player = require('./playermodel.js');
-
-module.exports =player;
+let player = require('./playermodel.js');	
+let jwt    = require('jsonwebtoken');
 
 module.exports = {
-
+	
 	signup : (req, res) => {
 		let userData  = req.body.Udata;
-		player.findOne({username : userData.username}, (err, userEX)=>{
-			if (userEX) {
-				console.log(userEX)
-				res.json({isUserExist : true })
+		player.findOne({username : userData.username}, (err, existingUser)=>{
+			if (existingUser) {
+				res.status(422).send({message: 'User Exist'});
 			}else {
-				console.log("error")
 				player.create(userData, (err, data)=> {
 					if (err) {
 						res.status(500).send(err);
 					}else{
-
-						res.json(data);
+						let token = jwt.sign(data, "hell of token guess game", 
+						{expiresIn: 1000}//1440 // expires in 24 hours
+						);
+						
+						res.json({
+							token : token,
+							username: data.username,
+							message: 'User Activated' 
+							
+						});
+						
+						
+						
 					}
 				});
 			}
 		})
 	},
-
-
-
-
-
+	
+	
+	
+	
+	
 	signin : (req, res) => {
-		player.findOne({email : req.body.email}, (err, user) => {
-			if (!user) {
-				res.json({isUser : false});
+		let username = req.body.username;
+		
+		player.findOne({username : req.body.username}, (err, player) => {
+			if (!player) {
+				res.status(422).send({message: 'User Not Exist'});
 			}else{
-				if(user.password === req.body.password){
-					var token = jwt.encode(user, 'secret');
-					res.setHeader('x-access-token',token);
-					res.json({token: token, id : user._id, userName : user.firstName + " " + user.lastName});
-				}else{
-					res.json({isValidPass : false});
-				}
+				
+				player.comparePassword(req.body.password)
+				.then(function (isMatch) {
+					if (isMatch) {
+						let token = jwt.sign(data, "hell of token guess game", {
+							expiresInMinutes:  1440 // expires in 24 hours
+						});
+						
+						res.json({
+							token : token,
+							expires: expires,
+							username: data.username
+						});
+					} else {
+						res.json({message :"password not matched"})
+					}
+				});
 			}
 		})
 	},
-
-
-
-
+	
+	
+	
+	
 	getAll : (req, res)=> {
 		player.find({} , (err, user)=>{
 			if (!user) {
@@ -56,15 +76,15 @@ module.exports = {
 			}
 		})
 	},
-
+	
 	getstats : (req, res) => {
-		player.findOne({'_id': req.params.userid}, (err, data)=>{
+		player.findOne({'username': req.params.username}, (err, data)=>{
 			if (!data) {
 				res.json({isUserExist : false })
 			}else {
 				res.json(data.userstats)
 				
-
+				
 			}
 		})
 	}

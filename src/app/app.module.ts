@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LocationStrategy , HashLocationStrategy } from '@angular/common';
 import {RouterModule} from '@angular/router';
+import {FlashMessagesModule} from 'angular2-flash-messages';
 import {UserService} from './User/user.service';
 import {GameStartService} from './test-game/game-start.service';
 
@@ -24,6 +25,7 @@ import { UserhomeComponent } from './User/userhome/userhome.component';
     UserhomeComponent
   ],
   imports: [
+    FlashMessagesModule,
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -31,7 +33,7 @@ import { UserhomeComponent } from './User/userhome/userhome.component';
   {path:'',component:UserSingupComponent},
   { path: 'test', component: TestGameComponent },
   // { path: 'signup', component: UserSingupComponent },
-  { path: 'signin', component: UserSinginComponent },
+  { path: 'login', component: UserSinginComponent },
   { path: 'home', component: UserhomeComponent }
   
   

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../user.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 
 @Component({
@@ -10,16 +11,17 @@ import {UserService} from '../user.service';
 })
 export class UserSingupComponent implements OnInit {
   
-  protected username: String;
-  protected password: String;
+  private username: String;
+  private password: String;
   constructor(
-    private userService:UserService,
-    private router: Router
+  private flashMessages: FlashMessagesService,
+  private userService:UserService,
+  private router: Router
   ) { }
-
+  
   ngOnInit() {
     
-
+    
   }
   onRegisterUser(){
     const user = {
@@ -27,21 +29,24 @@ export class UserSingupComponent implements OnInit {
       password: this.password,
     }
     console.log(user);
-
+    
     //Register user
     this.userService.registerUser({Udata:user}).subscribe(data => {
-
+      
       if(data){
         console.log(data);
-        this.userService.storeUserData(data._id,data.username)
+        this.userService.storeUserData(data.token,data.username)
+        this.flashMessages.show(data.message, { cssClass: 'alert-success' })
         this.router.navigate(['/home']);
-        } else {
-          this.router.navigate(['/']);
-        }
-        });
-
+      } else {
+        this.flashMessages.show(data.message, { cssClass:'alert-danger' })
+        this.router.navigate(['/']);
+        
+      }
+    });
+    
   }
-
-
-
+  
+  
+  
 }

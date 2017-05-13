@@ -14,7 +14,7 @@ var app  = express();
 // var server = require('http').Server(app);
 
 mw(app,express);
-routes(app,express);
+
 //set express to listen to for requests or certain port
 app.use(express.static('client'));
 
@@ -22,73 +22,74 @@ const port = process.env.PORT || 1020;
 
 const server = app.listen(port,function(){
 	console.log('wornking on port : ' + port)
- });
+});
 
-require('./config/routes.js') (app,express);
+// require('./config/routes.js') (app,express, io);
 
- 
-var io = require('socket.io')(server); 
+
 
 
 // io.sockets.on('connection',newConnection);
 
 // function newConnection(socket){
-// count++;
-// console.log('new connection',socket.id)
-// console.log(count + "active socket");
-
-//   // console.log('-------------------',socket);
-// }
-
-
-io.on('connection', function (socket) {
-count++;
-console.log(count + "  active socket",socket.id)
-  socket.emit('news', { hello: 'world' });
-  socket.on('add-message', function (data) {
-    console.log('on add msg ');
-    console.log(data);
-    console.log('post owner',socket.id)
-  // socket.broadcast.emit('news', data);//broadcast data to all sockets expect the sender;
-  io.sockets.emit('news',data);//sending data to all sockes
-
-
+  // count++;
+  // console.log('new connection',socket.id)
+  // console.log(count + "active socket");
+  
+  //   // console.log('-------------------',socket);
+  // }
+  var io = require('socket.io')(server); 
+  routes(app,express , io);
+  
+  io.on('connection', function (socket) {
+    count++;
+    console.log(count + "  active socket",socket.id)
+    socket.emit('news', { hello: 'world' });
+    socket.on('add-message', function (data) {
+      console.log('on add msg ');
+      console.log(data);
+      console.log('post owner',socket.id)
+      // socket.broadcast.emit('news', data);//broadcast data to all sockets expect the sender;
+      io.sockets.emit('news',data);//sending data to all sockes
+      
+      
+    });
+    
+    socket.on('disconnect', function () {
+      count--;
+      console.log(count + "active socket")
+    });
   });
   
-  socket.on('disconnect', function () {
-  count--;
-   console.log(count + "active socket")
- });
-});
-
-
-var nsp = io.of('/game1');
-
-nsp.on('connection', function(socket){
- 
-  console.log('finally name space'+socket.id);
+  
+  var nsp = io.of('/game1');
+  
+  nsp.on('connection', function(socket){
+    
+    console.log('finally name space'+socket.id);
     socket.on('special-socket', function (data) {
-    console.log('on namespace ');
-    console.log(data);
-    console.log('post owner',socket.id)
-  io.sockets.emit('game1',data);//sending data to all sockes
-
-
+      console.log('on namespace ');
+      console.log(data);
+      console.log('post owner',socket.id)
+      io.sockets.emit('game1',data);//sending data to all sockes
+      
+      
+    });
   });
-});
-
-//=============================================================================
-/*								Database									 */
-//=============================================================================
-	 const mongoURI = process.env.MONGODB_URI  || 'mongodb://localhost/guessGame';
-
+  
+  //=============================================================================
+  /*								Database									 */
+  //=============================================================================
+  const mongoURI = process.env.MONGODB_URI  || 'mongodb://localhost/guessGame';
+  
 	mongoose.connect(mongoURI);
 	db = mongoose.connection;
-
+  
 	db.once('open',function () {
 		console.log('mongoDB is open');
 	});
-
-
-
-    
+  
+  
+  
+  
+  
