@@ -4,11 +4,17 @@ import {Router} from '@angular/router';
 import {Observable} from "rxjs";
 import Chart from 'chart.js';
 import * as $ from "jquery";
+import { GameService } from '../../test-game/game.service';
+import {GameStartService} from '../../test-game/game-start.service';
+
+
 
 @Component({
   selector: 'app-userhome',
   templateUrl: './userhome.component.html',
-  styleUrls: ['./userhome.component.css']
+  styleUrls: ['./userhome.component.css'],
+  providers: [GameService]
+  
 })
 export class UserhomeComponent implements OnInit {
   private gameflag = false;
@@ -17,13 +23,17 @@ export class UserhomeComponent implements OnInit {
   protected games:any;
   private statsflag = false;
   private errorMsg : String;
+  private gamename : String;
+  private GameId:String;
   
   
   
   
   constructor(
   private userService:UserService,
-  private router: Router
+  private router: Router,
+  private gameService:GameService,
+  private game:GameStartService
   ) { }
   
   ngOnInit() {
@@ -44,7 +54,8 @@ export class UserhomeComponent implements OnInit {
         event.stopPropagation();
       });
     });
-    this.Ustats={gameplayed:2,gamewon:1,gamelost:1}
+    // this.Ustats={gameplayed:2,gamewon:1,gamelost:1}
+    console.log(this.Ustats)
     
     
     
@@ -90,51 +101,72 @@ export class UserhomeComponent implements OnInit {
       }
     }
     
-
-  
+    
+    
     Userstats(){
       
       this.userService.Userstats(localStorage.getItem('user-name'))
       .subscribe( data => this.Ustats=data,
       reserr =>{
         if(reserr){
-      this.router.navigate(['/login'])
-
+          // this.router.navigate(['/login'])
+          
         }
-
+        
       })
     }
-      
-                       
-
     
-      
-      
-      getgames(){
-        this.userService.getGames().subscribe(data => {
-          
-          if(data){
-            console.log(data);
-            this.games=data;
-            
-          } else {
-            console.log('btatatats');
-            
-          }
-        });
+    
+    savegamedata(id,name){
+      localStorage.setItem('gameid',id);
+      localStorage.setItem('gamename',name);
+    }
+    
+    
+    
+    getgames(){
+      this.userService.getGames().subscribe(data => {
         
-      }
-      
-      
+        if(data){
+          this.games=data;
+          console.log(this.games);
+          
+          
+        } else {
+          console.log('btatatats');
+          
+        }
+      });
       
     }
-    // => {
-    //     if(data){
-    //       console.log(data);
-    //       this.Ustats=data;
-    //       console.log(this.Ustats);
-    //     }}),(err) => {
-    //       console.log(err,"iiii888888iii")
-    //       if (err === 'Unauthorized') { this.router.navigate(['/login']) };
+    
+    startGame(){
+      
+      const data = { 
+        gname:this.gamename,
+        username: localStorage.getItem('user-name'), 
+      }
+      console.log(data);
+      
+      //Register user
+      this.game.gameinit({Gdata:data}).subscribe(data => {
+        
+        
+        if(data){
+          console.log(data);
+          this.GameId=data._id;
+          // this.userService.storeUserData(data.token,data._id,data.username)
           
-    //     }
+        } else {
+          console.log("erooekjsiodhf");
+          
+          
+        }
+      });
+      
+    }
+    
+    
+    
+  }
+  

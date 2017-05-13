@@ -23,18 +23,18 @@ private username:String;
   
   
    constructor(private gameService:GameService  ,private game:GameStartService) {}
-  sendMessage(){
-    this.gameService.sendMessage(this.message);
-    this.message = '';
-    console.log("sent");
-    console.log(this.message);
+  // sendMessage(){
+  //   this.gameService.sendMessage(this.message);
+  //   this.message = '';
+  //   console.log("sent");
+  //   console.log(this.message);
     
-  }
-    joingame(){
-      this.gameService.joingame();
-        console.log("join room ");
+  // }
+  //   joingame(){
+  //     this.gameService.joingame();
+  //       console.log("join room ");
        
-  }
+  // }
   ngOnInit() {
     this.connection = this.gameService.getMessages().subscribe(message => {
       this.messages.push(message);

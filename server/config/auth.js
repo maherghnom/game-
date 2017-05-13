@@ -10,6 +10,8 @@ module.exports =  function isAuthenticated(req, res, next) {
     // decode token
     if (token) {
         console.log('hell')
+        console.log(token)
+        
         // verifies secret and checks exp
         jwt.verify(token, "hell of token guess game", function(err, decoded) {      
             if (err) {

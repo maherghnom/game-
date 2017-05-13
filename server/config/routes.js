@@ -8,7 +8,7 @@ module.exports = function(app, express, io) {
 	
 	////game route	
 	app.post('/api/game/start' , isAuthenticated , Game.start);
-	app.post('/api/game/check' , isAuthenticated , Game.check);
+	app.post('/api/game/check' , Game.check);
 	app.get('/api/game/all'    , isAuthenticated, Game.getgames);
 	
 	//// player route

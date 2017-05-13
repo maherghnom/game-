@@ -28,7 +28,6 @@ export class UserSingupComponent implements OnInit {
       username: this.username, 
       password: this.password,
     }
-    console.log(user);
     
     //Register user
     this.userService.registerUser({Udata:user}).subscribe(data => {

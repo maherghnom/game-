@@ -47,15 +47,15 @@
         </div>
 
 <div class="col-lg-4">
-          <p>Play vs The Ai </p>
+          <p>Join Games  </p>
       <form>
-  <input type="submit" value="P  Vs Pc" id="input-submit">
+  <input type="submit" value="join " id="input-submit" (click)="showGames()">
        </form>
 <!-- to show game available to play -->
    <div *ngIf="gameflag" class="sidenav">
 <a (click)="showGames()"> close</a>
  <div *ngFor="let game of games">
- <a [routerLink]="['/test', { _id: game._id }]">{{game._id}}</a>
+ <a [routerLink]="['/join']" (click)="savegamedata( game._id ,game.gameName)">{{game.gameName}}</a>
  </div>
 </div>
  </div>
@@ -63,16 +63,12 @@
   <div class="col-lg-4">
  <p>Start A Game</p>
 <form>
-<input  id="input-submit" type='submit'  value="Iniate Game">
+<input  id="input-submit" type='input'  placeholder="Name Your game" name="gamename"   [(ngModel)]="gamename">
+<input  id="input-submit" type='submit' routerLink = "/test"  value="Iniate Game">
 </form>
 </div>
 
- <div class="col-lg-4">
- <p>Some Text About the Game</p>
-<form>
-<input *ngIf="!testflag" id="input-submit" type='submit' (click)="showGames()" value="show games">
-</form>
-        </div>
+
 
       </div>
     </div> 

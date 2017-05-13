@@ -24,7 +24,6 @@ export class UserSinginComponent implements OnInit {
       username: this.username, 
       password: this.password,
     }
-    console.log(user);
 
     //Sign in user
     this.userService.signin({Udata:user}).subscribe(data => {

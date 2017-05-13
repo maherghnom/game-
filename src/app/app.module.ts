@@ -15,6 +15,8 @@ import { TestGameComponent } from './test-game/test-game.component';
 import { UserSingupComponent } from './User/user-singup/user-singup.component';
 import { UserSinginComponent } from './User/user-singin/user-singin.component';
 import { UserhomeComponent } from './User/userhome/userhome.component';
+import { JoinGameComponent } from './join-game/join-game.component';
+import { StartGameComponent } from './start-game/start-game.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { UserhomeComponent } from './User/userhome/userhome.component';
     TestGameComponent,
     UserSingupComponent,
     UserSinginComponent,
-    UserhomeComponent
+    UserhomeComponent,
+    JoinGameComponent,
+    StartGameComponent
   ],
   imports: [
     FlashMessagesModule,
@@ -34,6 +38,8 @@ import { UserhomeComponent } from './User/userhome/userhome.component';
   { path: 'test', component: TestGameComponent },
   // { path: 'signup', component: UserSingupComponent },
   { path: 'login', component: UserSinginComponent },
+  { path: 'join', component: JoinGameComponent },
+  { path: 'start', component: StartGameComponent },
   { path: 'home', component: UserhomeComponent }
   
   
