@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 export class JoinGameComponent implements OnInit {
   private messages = [];
   private connection;
-  private  message : String ;
+  // private  message : String ;
   private  userAnswer : String ;
   private GameId:String;
   private userid:String;
@@ -28,13 +28,15 @@ export class JoinGameComponent implements OnInit {
   
   ngOnInit() {
     this.connection = this.gameService.getMessages().subscribe(message => {
-      
       console.log(message)
-      if (message === "gameOver"){
-        alert('you lost');
+      if(message != {username:localStorage.getItem('user-name')} ){
+        alert("the game is ended winner Name is : " + message);
+        ///function to increase lost game in db for the user
+        this.game.lost({Gdata:localStorage.getItem('user-name') }).subscribe(data => {
+          console.log(data)
+        });
         this.router.navigate(['/home']);
       }
-      
     })
     
     
@@ -51,20 +53,11 @@ export class JoinGameComponent implements OnInit {
       gameid:localStorage.getItem('gameid'),
       gamename:localStorage.getItem('gamename'),
       username: localStorage.getItem('user-name')
-      
     }
-    console.log(answer);
-    
-    
     this.game.check({Gdata:answer}).subscribe(data => {
-      
-      
       if(data === 'you won the game'){
-        console.log(data,'form server');
         alert('you won the game');
         this.router.navigate(['/home']);
-        // this.userService.storeUserData(data.token,data._id,data.username)
-        
       } else {
         alert(data);
         

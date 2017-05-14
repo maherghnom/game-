@@ -11,15 +11,14 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class UserService {
-
+  
   constructor(private http:Http , private router: Router,) { }
   
-    private extractData(res: Response) {
+  private extractData(res: Response) {
     let body = res.json();
     return body || { };
   }
   private handleError (error: Response | any) {
-    // In a real world app, you might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';
@@ -51,32 +50,30 @@ export class UserService {
     return this.http.post('api/user/signin', user, {headers: headers})
     .map(res => res.json())
   }
-      errorHandler(error: Response){
-        console.error(error);
-        return Observable.throw(error || "Server Error");
-    }
-
+  errorHandler(error: Response){
+    console.error(error);
+    return Observable.throw(error || "Server Error");
+  }
+  
   Userstats(params) : Observable<Response>   {
     let headers = new Headers();
     this.createAuthorizationHeader(headers)
     return this.http.get('api/user/stats/' + params , {headers: headers})
     .map((res :  Response) => res.json())
     .catch(this.errorHandler);
-
-      
-    }
     
-    getGames() {
-      let headers = new Headers();
-      this.createAuthorizationHeader(headers);
-      
-      return this.http.get('api/game/all',  {headers: headers})
-      
-      .map(res => res.json());
-    }
-    storeUserData(token,name){
-      localStorage.setItem('user-name', name);
-      localStorage.setItem('my token', token);
-    }
+    
   }
   
+  getGames() {
+    let headers = new Headers();
+    this.createAuthorizationHeader(headers);
+    return this.http.get('api/game/all',  {headers: headers})
+    .map(res => res.json());
+  }
+  
+  storeUserData(token,name){
+    localStorage.setItem('user-name', name);
+    localStorage.setItem('my token', token);
+  }
+}

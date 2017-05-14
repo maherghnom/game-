@@ -6,7 +6,6 @@ module.exports =  function isAuthenticated(req, res, next) {
     
     // check header for token 
     let token =  req.headers['my-access-guess-app'];
-    
     // decode token
     if (token) {
         

@@ -38,8 +38,7 @@ export class UserhomeComponent implements OnInit {
   
   ngOnInit() {
     
-    this.getgames();
-    this.Userstats();
+    
     
     $(document).ready(function() {
       $(document).delegate('.open', 'click', function(event){
@@ -57,7 +56,8 @@ export class UserhomeComponent implements OnInit {
     // this.Ustats={gameplayed:2,gamewon:1,gamelost:1}
     console.log(this.Ustats)
     
-    
+    this.getgames();
+    this.Userstats(); 
     
   }
   
@@ -106,12 +106,16 @@ export class UserhomeComponent implements OnInit {
     Userstats(){
       
       this.userService.Userstats(localStorage.getItem('user-name'))
-      .subscribe( data => this.Ustats=data,
+      .subscribe( data =>  { this.Ustats=data 
+        console.log(data)
+        ,
+
       reserr =>{
         if(reserr){
-          // this.router.navigate(['/login'])
-          
+          this.router.navigate(['/login'])
+          alert('please Log in again')
         }
+      }
         
       })
     }
@@ -133,7 +137,7 @@ export class UserhomeComponent implements OnInit {
           
           
         } else {
-          console.log('btatatats');
+          console.log('sThing went wrong');
           
         }
       });
@@ -143,30 +147,24 @@ export class UserhomeComponent implements OnInit {
     startGame(){
       
       const data = { 
-        gname:this.gamename,
-        username: localStorage.getItem('user-name'), 
+        gameName:this.gamename,
+        
       }
       console.log(data);
       
-      //Register user
+      
       this.game.gameinit({Gdata:data}).subscribe(data => {
         
-        
-        if(data){
-          console.log(data);
-          this.GameId=data._id;
-          // this.userService.storeUserData(data.token,data._id,data.username)
-          
-        } else {
-          console.log("erooekjsiodhf");
-          
-          
-        }
-      });
-      
+        localStorage.setItem('gameid',data.id)
+        localStorage.setItem('gamename',data.name)
+        this.router.navigate(['/join'])
+        ,
+        reserr =>{
+          if(reserr){
+            this.router.navigate(['/login'])
+          }
+        };
+      })
     }
-    
-    
-    
   }
   

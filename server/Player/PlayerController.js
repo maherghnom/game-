@@ -87,7 +87,19 @@ module.exports = {
 					
 				}
 			})
+		},
+		lost : (req, res) => {
+			let q = { 'username': req.body.Gdata };
+			let d = {$inc: {gameplayed:1,gamelost:1} ,
+			};
+			player.findOneAndUpdate(q,d, { "new": true})
+			.exec(function(err,data){
+				if(err){
+					res.json(err)
+				}else {
+					res.json("u lost :" + data.gamelost + "games")
+				}
+			})
 		}
+		
 	}
-	
-	
