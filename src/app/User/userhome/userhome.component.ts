@@ -53,10 +53,8 @@ export class UserhomeComponent implements OnInit {
         event.stopPropagation();
       });
     });
-    // this.Ustats={gameplayed:2,gamewon:1,gamelost:1}
-    console.log(this.Ustats)
     
-    this.getgames();
+    // this.getgames();
     this.Userstats(); 
     
   }
@@ -104,67 +102,53 @@ export class UserhomeComponent implements OnInit {
     
     
     Userstats(){
-      
       this.userService.Userstats(localStorage.getItem('user-name'))
-      .subscribe( data =>  { this.Ustats=data 
-        console.log(data)
-        ,
-
-      reserr =>{
-        if(reserr){
-          this.router.navigate(['/login'])
-          alert('please Log in again')
-        }
-      }
-        
+      .subscribe( data =>   {this.Ustats=data }
+      ,
+      error => {
+        alert('please Log in again')
+        this.router.navigate(['/login']);
       })
     }
     
     
-    savegamedata(id,name){
-      localStorage.setItem('gameid',id);
-      localStorage.setItem('gamename',name);
-    }
     
     
     
     getgames(){
-      this.userService.getGames().subscribe(data => {
-        
-        if(data){
-          this.games=data;
-          console.log(this.games);
-          
-          
-        } else {
-          console.log('sThing went wrong');
-          
-        }
+      this.userService.getGames().subscribe(data => 
+      {this.games=data },
+      error => {
+        alert('please Log in again')
+        this.router.navigate(['/login']);
       });
       
     }
-    
+    savegamedata (data){
+      localStorage.setItem('gameid',data.id)
+      localStorage.setItem('gamename',data.name)
+    }
     startGame(){
       
       const data = { 
         gameName:this.gamename,
         
       }
-      console.log(data);
       
-      
-      this.game.gameinit({Gdata:data}).subscribe(data => {
-        
-        localStorage.setItem('gameid',data.id)
-        localStorage.setItem('gamename',data.name)
+      this.game.gameinit({Gdata:data}).subscribe(data =>  {
+        this.savegamedata(data);
         this.router.navigate(['/join'])
-        ,
-        reserr =>{
-          if(reserr){
-            this.router.navigate(['/login'])
-          }
-        };
+      }
+      ,
+      error => {
+        alert('please Log in again')
+        this.router.navigate(['/login']);
       })
+    }
+    
+    logout(){
+      localStorage.clear();
+      console.log("log out ")
     }
   }
   

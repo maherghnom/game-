@@ -8,6 +8,7 @@ import {FlashMessagesModule} from 'angular2-flash-messages';
 import {UserService} from './User/user.service';
 import {GameStartService} from './test-game/game-start.service';
 
+import {AppGuard} from './app.guard';
 
 
 import { AppComponent } from './app.component';
@@ -33,11 +34,11 @@ import { JoinGameComponent } from './join-game/join-game.component';
     HttpModule,
     RouterModule.forRoot([
   {path:'',component:UserSingupComponent},
-  { path: 'test', component: TestGameComponent },
+  // { path: 'test', component: TestGameComponent },
   // { path: 'signup', component: UserSingupComponent },
   { path: 'login', component: UserSinginComponent },
-  { path: 'join', component: JoinGameComponent },
-  { path: 'home', component: UserhomeComponent }
+  { path: 'join', component: JoinGameComponent ,canActivate:[AppGuard]},
+  { path: 'home', component: UserhomeComponent ,canActivate:[AppGuard]}
   
   
 
@@ -50,7 +51,7 @@ import { JoinGameComponent } from './join-game/join-game.component';
 ])
     
   ],
-  providers: [{provide:LocationStrategy,useClass:HashLocationStrategy},UserService,GameStartService],
+  providers: [{provide:LocationStrategy,useClass:HashLocationStrategy},UserService,GameStartService,AppGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

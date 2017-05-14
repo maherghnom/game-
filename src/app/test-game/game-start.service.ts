@@ -36,9 +36,9 @@ export class GameStartService {
     headers.append('MY-access-guess-app', localStorage.getItem('my token'));
     headers.append('Content-Type','application/json');
   }
+   
   
-  
-  gameinit(game){
+  gameinit(game) : Observable<Response> {
     let headers = new Headers();
    this.createAuthorizationHeader(headers)
     return this.http.post('api/game/start', game,{headers: headers})
@@ -50,14 +50,16 @@ export class GameStartService {
     let headers = new Headers();
     this.createAuthorizationHeader(headers)
     return this.http.post('api/game/check', game, {headers: headers})
-    .map(res => res.json());
+    .map(res => res.json())
+    .catch(this.errorHandler);
   }
   
   lost(game) {
     let headers = new Headers();
     this.createAuthorizationHeader(headers)
     return this.http.post('api/user/lost', game, {headers: headers})
-    .map(res => res.json());
+    .map(res => res.json())
+    .catch(this.errorHandler);;
   }
   
   

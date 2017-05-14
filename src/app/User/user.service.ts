@@ -52,7 +52,7 @@ export class UserService {
   }
   errorHandler(error: Response){
     console.error(error);
-    return Observable.throw(error || "Server Error");
+    return Observable.throw(error);
   }
   
   Userstats(params) : Observable<Response>   {
@@ -60,7 +60,12 @@ export class UserService {
     this.createAuthorizationHeader(headers)
     return this.http.get('api/user/stats/' + params , {headers: headers})
     .map((res :  Response) => res.json())
-    .catch(this.errorHandler);
+    // .catch(e => {
+    //         if (e.status === 401) {
+    //             return Observable.throw('Unauthorized');
+    //         }
+    // })
+    .catch(this.handleError);
     
     
   }
@@ -76,4 +81,13 @@ export class UserService {
     localStorage.setItem('user-name', name);
     localStorage.setItem('my token', token);
   }
+
+      loggedIn(){
+      if(localStorage.getItem('my token').length){
+        return true
+      }
+      else{
+        return false
+      }
+    }
 }

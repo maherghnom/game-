@@ -47,58 +47,57 @@ private username:String;
     this.connection.unsubscribe();
   }
 
-  startGame(){
+  // startGame(){
 
-        const user = {
-      username: "maher", 
-    }
-    console.log(user);
+  //       const user = {
+  //     username: "maher", 
+  //   }
+  //   console.log(user);
 
-    //Register user
-    this.game.gameinit({Gdata:user}).subscribe(data => {
+  //   //Register user
+  //   this.game.gameinit({Gdata:user}).subscribe(data => {
       
 
-      if(data){
-        console.log(data);
-        this.GameId=data._id;
-        // this.userService.storeUserData(data.token,data._id,data.username)
+  //     if(data){
+  //       console.log(data);
+  //       // this.GameId=data._id;
         
-      } else {
-        console.log("erooekjsiodhf");
+  //     } else {
+  //       console.log("erooekjsiodhf");
         
           
-        }
-        });
+  //       }
+  //       });
 
-  }
+  // }
 
-    sendAnswer(){
-   const answer = {
-      answer: this.userAnswer,
-      gameid:this.GameId,
-      userid:localStorage.getItem('user-id'),
-      username: localStorage.getItem('user-name')
+  //   sendAnswer(){
+  //  const answer = {
+  //     answer: this.userAnswer,
+  //     gameid:this.GameId,
+  //     userid:localStorage.getItem('user-id'),
+  //     username: localStorage.getItem('user-name')
 
-    }
-    console.log(answer);
+  //   }
+  //   console.log(answer);
 
 
-    this.game.check({Gdata:answer}).subscribe(data => {
+  //   this.game.check({Gdata:answer}).subscribe(data => {
       
 
-      if(data){
-        console.log(data,'form server');
+  //     if(data){
+  //       console.log(data,'form server');
 
-        // this.userService.storeUserData(data.token,data._id,data.username)
+  //       // this.userService.storeUserData(data.token,data._id,data.username)
         
-      } else {
-        console.log("erooekjsiodhf");
+  //     } else {
+  //       console.log("erooekjsiodhf");
         
           
-        }
-        });
+  //       }
+  //       });
 
-  }
+  // }
 }
   
 
