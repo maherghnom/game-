@@ -54,8 +54,9 @@ export class UserhomeComponent implements OnInit {
       });
     });
     
+    
     // this.getgames();
-    this.Userstats(); 
+    // this.Userstats(); 
     
   }
   
@@ -111,8 +112,11 @@ export class UserhomeComponent implements OnInit {
       })
     }
     
-    
-    
+    /////here to save data of the joined game
+      savegamedata (id,name){
+      localStorage.setItem('gameid',id)
+      localStorage.setItem('gamename',name)
+    }
     
     
     getgames(){
@@ -124,7 +128,8 @@ export class UserhomeComponent implements OnInit {
       });
       
     }
-    savegamedata (data){
+    ///// save game data of a new game
+    savedata (data){
       localStorage.setItem('gameid',data.id)
       localStorage.setItem('gamename',data.name)
     }
@@ -136,7 +141,7 @@ export class UserhomeComponent implements OnInit {
       }
       
       this.game.gameinit({Gdata:data}).subscribe(data =>  {
-        this.savegamedata(data);
+        this.savedata(data);
         this.router.navigate(['/join'])
       }
       ,

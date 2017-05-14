@@ -5,12 +5,15 @@ var player = require('../Player/PlayerModel');
 
 
 module.exports = (io) => {
+	///inject io to chexk if other players solve the game 
 	return {
-		
+		//// add the db 
 		start: (req, res) => {
 			let gamedata = req.body.Gdata;
+			///putting the right answer that is auto generated;
 			gamedata.rightAnswer = parseInt(Math.random() * (this.level || 20) + 1);
-			console.log(gamedata);
+			// console.log(gamedata);
+			
 			Game.create(gamedata, (err, data) => {
 				if (err) {
 					res.status(500).send(err);
@@ -22,9 +25,9 @@ module.exports = (io) => {
 		},
 		
 		check: (req, res) => {
-			///FROM DATA user id , game id , username  ,userAnswer
+			///FROM DATA gamename , game id , username  ,userAnswer
 			let event = req.body.Gdata.gamename
-			// let userid = req.body.Gdata.userid;
+			////the event is the game name to broadcast to all user if someone won the game 
 			let username = req.body.Gdata.username;
 			let gameid = req.body.Gdata.gameid;
 			let userA = req.body.Gdata.answer;
@@ -47,55 +50,52 @@ module.exports = (io) => {
 					})
 					
 					
-					// gamelost:data.userstats})
+					// update the winner stats here 
 					let q = { 'username': username };
 					let d = {$inc: {gameplayed:1,gamewon:1,trophies:10} };
-						
-						
-						player.findOneAndUpdate(q,d, { "new": true})
-						.exec(function(err,data){
-							if(err){
-								res.json(err)
-							}else {
-								console.log(data,'in player')
-								
-								console.log(data,'in player')
-								
-								res.json('you won the game')
-							}
-						})
-						
-					} else if (data.rightAnswer < userA) {
-						res.json("the right answer is lower");
-						// io.sockets.emit(event, {end:false})
-						
-					} else {
-						// io.sockets.emit(event, {end:false})
-						
-						res.json("the right answer is higher")
-					}
 					
-				})
-			},
-			getgames: (req, res) => {
-				Game.find({ $where: "this.closed == 'false' " }, (err, game) => {
-					if (err) {
-						res.json(err)
-					} else {
-						res.json(game);
-					}
-				})
-			}
+					
+					player.findOneAndUpdate(q,d, { "new": true})
+					.exec(function(err,data){
+						if(err){
+							res.json(err)
+						}else {
+							
+							
+							
+							res.json('you won the game')
+						}
+					})
+					
+				} else if (data.rightAnswer < userA) {
+					res.json("the right answer is lower");
+					
+				} else {
+					
+					res.json("the right answer is higher")
+				}
+				
+			})
+		},
+		/// get games available to join where closed is false 
+		getgames: (req, res) => {
+			Game.find({ $where: "this.closed == 'false' " }, (err, game) => {
+				if (err) {
+					res.json(err)
+				} else {
+					res.json(game);
+				}
+			})
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+}
+
+
+
+
+
+
+
+
+
+

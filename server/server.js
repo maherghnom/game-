@@ -1,60 +1,40 @@
-var express  = require('express');
-var mongoose = require('mongoose');
-var routes   = require('./config/routes');
-var mw       = require('./config/middleware');
+const express  = require('express');
+const mongoose = require('mongoose');
+const routes   = require('./config/routes');
+const mw       = require('./config/middleware');
 
 
-var count = 0;
-var games = 0;
+let count = 0;
 //=============================================================================
 /*									Server   								 */
 //=============================================================================
-var app  = express();
-// var app = require('express')();
-// var server = require('http').Server(app);
+const app  = express();
+
 
 mw(app,express);
 
 //set express to listen to for requests or certain port
 app.use(express.static('client'));
 
-const port = process.env.PORT || 1020;
+let port = process.env.PORT || 1020;
 
 const server = app.listen(port,function(){
 	console.log('wornking on port : ' + port)
 });
 
-// require('./config/routes.js') (app,express, io);
-
-
-
-
-// io.sockets.on('connection',newConnection);
-
-// function newConnection(socket){
-  // count++;
-  // console.log('new connection',socket.id)
-  // console.log(count + "active socket");
-  
-  //   // console.log('-------------------',socket);
-  // }
-  var io = require('socket.io')(server); 
+  let io = require('socket.io')(server); 
   routes(app,express , io);
   
   io.on('connection', function (socket) {
     count++;
     console.log(count + "  active socket",socket.id)
-    socket.emit('news', { hello: 'world' });
-    socket.on('add-message', function (data) {
-      console.log('on add msg ');
-      console.log(data);
-      console.log('post owner',socket.id)
+  //testing socket ;
       // socket.broadcast.emit('news', data);//broadcast data to all sockets expect the sender;
-      io.sockets.emit('news',data);//sending data to all sockes
+     // io.sockets.emit('news',data);//sending data to all sockes
       
       
-    });
     
+  ///count socket connected  
     socket.on('disconnect', function () {
       count--;
       console.log(count + "active socket")
@@ -62,31 +42,17 @@ const server = app.listen(port,function(){
   });
   
   
-  var nsp = io.of('/game1');
-  
-  nsp.on('connection', function(socket){
-    
-    console.log('finally name space'+socket.id);
-    socket.on('special-socket', function (data) {
-      console.log('on namespace ');
-      console.log(data);
-      console.log('post owner',socket.id)
-      io.sockets.emit('game1',data);//sending data to all sockes
-      
-      
-    });
-  });
   
   //=============================================================================
   /*								Database									 */
   //=============================================================================
-  const mongoURI = process.env.MONGODB_URI  || 'mongodb://localhost/guessGame';
+  let mongoURI = process.env.MONGODB_URI  || 'mongodb://localhost/guessGame';
   
 	mongoose.connect(mongoURI);
 	db = mongoose.connection;
   
 	db.once('open',function () {
-		console.log('mongoDB is open');
+		console.log('mongoDB Working');
 	});
   
   

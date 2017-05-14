@@ -34,11 +34,11 @@ import { JoinGameComponent } from './join-game/join-game.component';
     HttpModule,
     RouterModule.forRoot([
   {path:'',component:UserSingupComponent},
-  // { path: 'test', component: TestGameComponent },
-  // { path: 'signup', component: UserSingupComponent },
   { path: 'login', component: UserSinginComponent },
   { path: 'join', component: JoinGameComponent ,canActivate:[AppGuard]},
   { path: 'home', component: UserhomeComponent ,canActivate:[AppGuard]}
+  
+  
   
   
 

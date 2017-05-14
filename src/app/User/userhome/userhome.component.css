@@ -1,3 +1,7 @@
+ .navbar {
+  margin-bottom: 50px;
+  border-radius: 0;
+}
 
     canvas{
         width: auto !important;
@@ -383,3 +387,20 @@ section h2 {
     max-width: 480px;
   }
 }
+
+
+.navbar-brand {
+    float: none;
+    padding: 5px;
+}
+.navbar-center {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+    margin: auto;
+    height:100%;
+}
+
+

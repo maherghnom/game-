@@ -46,7 +46,7 @@ export class GameStartService {
     .catch(this.errorHandler);
   }
   
-  check(game) {
+  check(game) : Observable<Response> {
     let headers = new Headers();
     this.createAuthorizationHeader(headers)
     return this.http.post('api/game/check', game, {headers: headers})
@@ -54,7 +54,7 @@ export class GameStartService {
     .catch(this.errorHandler);
   }
   
-  lost(game) {
+  lost(game) : Observable<Response> {
     let headers = new Headers();
     this.createAuthorizationHeader(headers)
     return this.http.post('api/user/lost', game, {headers: headers})

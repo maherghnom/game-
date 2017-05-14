@@ -3,17 +3,18 @@ let jwt    = require('jsonwebtoken');
 
 
 module.exports = {
-	
+	///sign uo user here 
 	signup : (req, res) => {
 		let userData  = req.body.Udata;
 		player.findOne({username : userData.username}, (err, existingUser)=>{
 			if (existingUser) {
-				res.status(422).send({message: 'User Exist'});
+				res.json({message: 'User Exist'});
 			}else {
 				player.create(userData, (err, data)=> {
 					if (err) {
 						res.status(500).send(err);
 					}else{
+						////generate token 
 						let token = jwt.sign(data, "hell of token guess game", 
 						{expiresIn: "1h"}//1440 // expires in 24 hours
 						);
@@ -40,7 +41,7 @@ module.exports = {
 	signin : (req, res) => {
 		player.findOne({username : req.body.Udata.username}, (err, player) => {
 			if (!player) {
-				res.status(422).send({message: 'User Not Exist'});
+				res.json({message: 'User Not Exist'});
 			}else{
 				
 				player.comparePassword(req.body.Udata.password)

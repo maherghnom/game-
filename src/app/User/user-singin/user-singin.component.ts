@@ -28,13 +28,14 @@ export class UserSinginComponent implements OnInit {
     //Sign in user
     this.userService.signin({Udata:user}).subscribe(data => {
 
-      if(data){
+      if(data.token){
         console.log(data);
         this.userService.storeUserData(data.token,data.username)
          this.flashMessages.show(data.message, { cssClass: 'alert-success' })
         this.router.navigate(['/home']);
-        } else {
-          this.router.navigate(['/']);
+      } else {
+         alert(data.message)
+          this.router.navigate(['/login']);
            this.flashMessages.show(data.message, { cssClass:'alert-danger' })
         }
         });

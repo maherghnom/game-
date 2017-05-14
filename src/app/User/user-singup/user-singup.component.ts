@@ -32,13 +32,14 @@ export class UserSingupComponent implements OnInit {
     //Register user
     this.userService.registerUser({Udata:user}).subscribe(data => {
       
-      if(data){
+      if(data.token){
         console.log(data);
         this.userService.storeUserData(data.token,data.username)
-        this.flashMessages.show(data.message, { cssClass: 'alert-success' })
+        // this.flashMessages.show(data.message, { cssClass: 'alert-success' })
         this.router.navigate(['/home']);
       } else {
-        this.flashMessages.show(data.message, { cssClass:'alert-danger' })
+        alert(data.message)
+        // this.flashMessages.show(data.message, { cssClass:'alert-danger' })
         this.router.navigate(['/']);
         
       }
