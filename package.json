@@ -4,12 +4,11 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "nodemon server/server.js",
+    "start": "ng build && nodemon server/server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-   
   },
   "private": true,
   "dependencies": {
