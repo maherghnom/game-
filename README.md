@@ -1,7 +1,9 @@
 #  Guess game MultiPlayer ~~ 
 
 >Simple guess game / Multiplayer single page game.
+<br>
 >More than 2 players can join.
+<br>
 >the first player who guesses the correct  will win.
 
 ## Table of Contents
