@@ -1,28 +1,56 @@
-# Game
+#  Guess game MultiPlayer ~~ 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.1.
+>Simple guess game / Multiplayer single page game.
 
-## Development server
+## Table of Contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+1. Installation.
+2. Usage.
+3.Dependencies.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## Running unit tests
+## Installation:  
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1- First, fork the repo.
 
-## Running end-to-end tests
+2- Now from your account, clone the repo into your local PC.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+3-When ever you have made any modification, don't forget to:
+-git add .
+-git push origi
+-git commit -m "" be well organized about commiting your code, and avoiding conflicts by assigning tasks between group members.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+4-You have to be well organized about commiting your code, and avoiding conflicts by assigning tasks between group members.
+
+## Usage: 
+-Now run the command 'mongod':
+
+-Since we are using angular2 cli , run npm start which is include
+'ng build' and start running the website on the localhost:
+<br><br>
+<center>
+<br><br></center>
+
+-Now you should be run on port 1020: 
+<br><br>
+<center>
+<br><br></center>
+
+
+-Sign up , start game and name it ,so others can join it by its name 
+
+<br><br>
+<center>
+<br><br></center>
+
+
+
+## Dependencies:
+1. Node.Js and express for the back-end
+2. MongoDB for data-base.
+3. Angular2, Bootstrap for front-end.
+4.socket io .
