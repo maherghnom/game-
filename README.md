@@ -27,7 +27,7 @@
 4-You have to be well organized about commiting your code, and avoiding conflicts by assigning tasks between group members.
 
 ## Usage: 
--Now run the command 'mongod':
+-Now run the command 'mongod' from mongo shell :
 
 -Since we are using angular2 cli , run npm start which is include
 'ng build' and start running the website on the localhost:
