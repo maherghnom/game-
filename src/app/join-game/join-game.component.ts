@@ -29,8 +29,8 @@ export class JoinGameComponent implements OnInit {
   ngOnInit() {
     this.connection = this.gameService.getMessages().subscribe(message => {
       console.log(message)
-      if(message != {username:localStorage.getItem('user-name')} ){
-        alert("the game is ended winner Name is : " + message);
+      if(JSON.stringify(message) !== JSON.stringify({username:localStorage.getItem('user-name')}) ){
+        alert("the game is ended" );
         ///function to increase lost game in db for the user
         this.game.lost({Gdata:localStorage.getItem('user-name') }).subscribe(data => {
           console.log(data)
